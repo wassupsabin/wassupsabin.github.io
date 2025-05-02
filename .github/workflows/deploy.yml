@@ -27,7 +27,7 @@ jobs:
           path: . # The root directory of your Astro project
       
       - name: Upload Pages artifact
-        uses: actions/upload-artifact@v3.1.2 # Updated to use a specific version
+        uses: actions/upload-artifact@v3 # Updated to use a specific version
         with:
           name: pages-artifact
           path: ./dist # The Astro default build output directory
