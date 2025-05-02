@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://wassupsabin.github.io',  // Replace with your actual GitHub username
-  base: '/website-southside',  // Uncommenting for GitHub Pages deployment
+  base: '/gssc',  // Updated for new GitHub repository
   integrations: [
     tailwind(),
     sitemap({
