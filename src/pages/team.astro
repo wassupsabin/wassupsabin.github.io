@@ -2,27 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import TeamMember from '../components/TeamMember.astro';
 
-const baseUrl = import.meta.env.BASE_URL;
-
-// Function to prefix paths with the base URL
-function getPath(path: string): string {
-  // If path is already absolute URL, return as is
-  if (path.startsWith('http')) return path;
-  
-  // Handle root path specially - combine with base URL
-  if (path === '/') return baseUrl || '/';
-  
-  // For other paths, ensure proper joining of base URL and path
-  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
-}
-
 // Placeholder data - replace with actual team member data
 const leadership = [
   {
     name: 'Ram Gurung',
     role: 'Chairperson',
     bio: 'Community leader with 15+ years of experience in cultural organizations.',
-    imageUrl: '/images/team/placeholder.jpg', // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg',
     socials: {
       email: 'chair@nscg.org'
     }
@@ -31,7 +17,7 @@ const leadership = [
     name: 'Sita Sharma',
     role: 'Secretary',
     bio: 'Dedicated to fostering community connections and managing our programs.',
-    imageUrl: '/images/team/placeholder.jpg', // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg',
     socials: {
       email: 'secretary@nscg.org'
     }
@@ -40,7 +26,7 @@ const leadership = [
     name: 'Krishna Paudel',
     role: 'Treasurer',
     bio: 'Financial professional ensuring transparent management of our resources.',
-    imageUrl: '/images/team/placeholder.jpg', // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg',
     socials: {
       email: 'treasurer@nscg.org'
     }
@@ -52,19 +38,19 @@ const volunteers = [
     name: 'Maya Thapa',
     role: 'Language School Coordinator',
     bio: 'Experienced educator coordinating our Nepali language programs.',
-    imageUrl: '/images/team/placeholder.jpg' // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg'
   },
   {
     name: 'Hari Limbu',
     role: 'Cultural Events Coordinator',
     bio: 'Organizing and managing our cultural celebrations and events.',
-    imageUrl: '/images/team/placeholder.jpg' // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg'
   },
   {
     name: 'Prajwal Rai',
     role: 'Youth Program Leader',
     bio: 'Working with young community members to organize activities and events.',
-    imageUrl: '/images/team/placeholder.jpg' // Don't use getPath here
+    imageUrl: '/images/team/placeholder.jpg'
   }
 ];
 ---
@@ -119,7 +105,7 @@ const volunteers = [
           If you're interested in contributing your skills and time, we'd love to hear from you.
         </p>
         <a
-          href={getPath('/contact')}
+          href="/contact"
           class="inline-block bg-white text-primary-blue font-medium px-8 py-3 rounded-md hover:bg-accent-gold hover:text-white transition-colors"
         >
           Get Involved

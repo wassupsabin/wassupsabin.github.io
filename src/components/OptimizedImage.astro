@@ -21,31 +21,9 @@ const {
   fetchpriority = 'auto'
 } = Astro.props;
 
-const baseUrl = import.meta.env.BASE_URL;
-
-// Function to prefix paths with the base URL
-function getPath(path: string): string {
-  // Skip base path modification for:
-  // 1. Absolute URLs (e.g., https://...)
-  // 2. Already prefixed paths (prevents double prefixing)
-  // 3. Data URLs
-  if (
-    path.startsWith('http') || 
-    path.startsWith('data:') || 
-    (baseUrl && path.startsWith(baseUrl))
-  ) {
-    return path;
-  }
-  
-  // Handle root path specially
-  if (path === '/') return baseUrl || '/';
-  
-  // For other paths, ensure proper joining of base URL and path
-  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
-}
-
-// Process source with base URL if it's a local path
-const processedSrc = getPath(src);
+// Process source - no need to add baseUrl prefix for image sources
+// This ensures images work in both local development and production
+const processedSrc = src;
 
 // Generate srcset for different screen sizes
 const srcSet = widths

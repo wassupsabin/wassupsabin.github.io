@@ -5,7 +5,9 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://wassupsabin.github.io',  // Replace with your actual GitHub username
+  site: 'https://wassupsabin.github.io',  // This is correct for your GitHub username
+  // Set trailingSlash to "ignore" instead of "always" to fix 404 errors
+  trailingSlash: 'ignore',
   integrations: [
     tailwind(),
     sitemap({

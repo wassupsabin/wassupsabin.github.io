@@ -1,20 +1,6 @@
 ---
 import SyllabusLayout from '../../layouts/SyllabusLayout.astro';
 
-const baseUrl = import.meta.env.BASE_URL;
-
-// Function to prefix paths with the base URL
-function getPath(path: string): string {
-  // If path is already absolute URL, return as is
-  if (path.startsWith('http')) return path;
-  
-  // Handle root path specially - combine with base URL
-  if (path === '/') return baseUrl || '/';
-  
-  // For other paths, ensure proper joining of base URL and path
-  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
-}
-
 // Define all 36 weeks of the curriculum
 const weeklyTopics = [
   { week: 1, title: "Welcome to Nepal - Location, Flag, and National Symbols" },
@@ -99,7 +85,7 @@ const terms = [
                     <td class="py-4 px-6 text-sm text-gray-700">{topic.title}</td>
                     <td class="py-4 px-6 text-right">
                       <a 
-                        href={getPath(`/syllabus/weekly/${topic.week}`)}
+                        href={`/syllabus/weekly/${topic.week}`}
                         class="inline-flex items-center px-3 py-1 border border-primary-blue text-primary-blue text-sm font-medium rounded-md hover:bg-primary-blue hover:text-white transition-colors"
                       >
                         View Lesson
@@ -119,7 +105,7 @@ const terms = [
 
     <div class="flex justify-center mt-12">
       <a 
-        href={getPath('/syllabus')}
+        href="/syllabus"
         class="inline-flex items-center px-6 py-3 bg-white border-2 border-primary-blue text-primary-blue font-medium rounded-md hover:bg-primary-blue hover:text-white transition-colors"
       >
         <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
