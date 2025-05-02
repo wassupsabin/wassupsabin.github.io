@@ -9,13 +9,12 @@ echo "🚀 Setting up GitHub Pages deployment..."
 cd "$(dirname "$0")/.." || exit
 
 # Verify astro.config.mjs has the correct GitHub Pages settings
-if grep -q "site:" "astro.config.mjs" && grep -q "base:" "astro.config.mjs"; then
-  echo "✅ Astro config has site and base path configurations"
+if grep -q "site:" "astro.config.mjs"; then
+  echo "✅ Astro config has site configuration"
 else
-  echo "⚠️ Warning: Your astro.config.mjs might be missing site or base path configurations"
+  echo "⚠️ Warning: Your astro.config.mjs might be missing site configuration"
   echo "Please ensure your astro.config.mjs contains:"
   echo "site: 'https://wassupsabin.github.io',"
-  echo "base: '/website-southside',"
 fi
 
 # Check for GitHub workflow file
@@ -99,7 +98,7 @@ echo "   git commit -m \"Setup GitHub Pages deployment\""
 echo "   git push origin main"
 echo ""
 echo "2. Go to your GitHub repository settings:"
-echo "   https://github.com/wassupsabin/website-southside/settings/pages"
+echo "   https://github.com/wassupsabin/wassupsabin.github.io/settings/pages"
 echo ""
 echo "3. Under 'Build and deployment', select 'GitHub Actions' as the source"
 echo ""
