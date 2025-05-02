@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TeamMember from '../components/TeamMember.astro';
+
+// Placeholder data - replace with actual team member data
+const leadership = [
+  {
+    name: 'Ram Gurung',
+    role: 'Chairperson',
+    bio: 'Community leader with 15+ years of experience in cultural organizations.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'chair@nscg.org'
+    }
+  },
+  {
+    name: 'Sita Sharma',
+    role: 'Secretary',
+    bio: 'Dedicated to fostering community connections and managing our programs.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'secretary@nscg.org'
+    }
+  },
+  {
+    name: 'Krishna Paudel',
+    role: 'Treasurer',
+    bio: 'Financial professional ensuring transparent management of our resources.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'treasurer@nscg.org'
+    }
+  }
+];
+
+const volunteers = [
+  {
+    name: 'Maya Thapa',
+    role: 'Language School Coordinator',
+    bio: 'Experienced educator coordinating our Nepali language programs.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Hari Limbu',
+    role: 'Cultural Events Coordinator',
+    bio: 'Organizing and managing our cultural celebrations and events.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Prajwal Rai',
+    role: 'Youth Program Leader',
+    bio: 'Working with young community members to organize activities and events.',
+    imageUrl: '/images/team/placeholder.jpg'
+  }
+];
+---
+
+<Layout 
+  title="Our Team"
+  description="Meet the dedicated team behind Nepalese Southside Community Glasgow">
+  
+  <!-- Hero Section -->
+  <section class="bg-mountain-gray/10 py-16">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-center mb-8">Our Team</h1>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-xl text-gray-700">
+          Meet the dedicated individuals who work tirelessly to serve our community
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Leadership Team</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {leadership.map(member => (
+          <TeamMember {...member} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Volunteer Team -->
+  <section class="py-16 bg-mountain-gray/10">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Volunteers</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {volunteers.map(member => (
+          <TeamMember {...member} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Join the Team -->
+  <section class="py-16 bg-primary-blue text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Join Our Team</h2>
+        <p class="text-xl mb-8">
+          We're always looking for passionate volunteers to help serve our community.
+          If you're interested in contributing your skills and time, we'd love to hear from you.
+        </p>
+        <a
+          href="/contact"
+          class="inline-block bg-white text-primary-blue font-medium px-8 py-3 rounded-md hover:bg-accent-gold hover:text-white transition-colors"
+        >
+          Get Involved
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

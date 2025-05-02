@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const timeline = [
+  {
+    year: '2020',
+    title: 'Community Formation',
+    description: 'Started as a small group of Nepalese families in Glasgow\'s Southside'
+  },
+  {
+    year: '2021',
+    title: 'Charity Registration',
+    description: 'Officially registered as a Scottish charity (SC05021)'
+  },
+  {
+    year: '2022',
+    title: 'Language School Launch',
+    description: 'Initiated weekly Nepali language classes for community members'
+  },
+  {
+    year: '2023',
+    title: 'Cultural Programs',
+    description: 'Expanded to regular cultural events and festivities'
+  }
+];
+
+const values = [
+  {
+    title: 'Cultural Heritage',
+    description: 'Preserving and promoting Nepalese culture and traditions'
+  },
+  {
+    title: 'Community Support',
+    description: 'Supporting and empowering our community members'
+  },
+  {
+    title: 'Education',
+    description: 'Providing educational opportunities and resources'
+  },
+  {
+    title: 'Integration',
+    description: 'Fostering integration with the wider Scottish community'
+  }
+];
+---
+
+<Layout 
+  title="About Us"
+  description="Learn about the Nepalese Southside Community Glasgow, our history, mission, and values">
+  
+  <!-- Hero Section -->
+  <section class="bg-mountain-gray/10 py-16">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-center mb-8">About Us</h1>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-xl text-gray-700">
+          Discover our journey of building a vibrant Nepalese community in Glasgow's Southside
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold mb-8">Our Mission & Vision</h2>
+        <div class="prose prose-lg">
+          <p>
+            Our mission is to preserve and promote Nepalese culture while fostering community integration
+            and supporting our members in Glasgow's Southside through education, cultural events, and
+            community outreach.
+          </p>
+          <p>
+            We envision a thriving Nepalese community that maintains its cultural identity while fully
+            participating in and contributing to Scottish society.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Timeline -->
+  <section class="py-16 bg-mountain-gray/10">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Journey</h2>
+      <div class="max-w-4xl mx-auto">
+        <div class="space-y-8">
+          {timeline.map((event, index) => (
+            <div class="flex flex-col md:flex-row gap-4 items-start">
+              <div class="md:w-32 flex-shrink-0">
+                <span class="text-xl font-bold text-primary-blue">{event.year}</span>
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-xl font-bold mb-2">{event.title}</h3>
+                <p class="text-gray-700">{event.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Values</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {values.map(value => (
+          <div class="bg-mountain-gray/5 p-6 rounded-lg">
+            <h3 class="text-xl font-bold mb-4">{value.title}</h3>
+            <p class="text-gray-700">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Charity Information -->
+  <section class="py-16 bg-primary-blue text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Charity Information</h2>
+        <p class="text-xl mb-4">
+          We are a registered Scottish charity dedicated to serving the Nepalese community.
+        </p>
+        <div class="inline-block border-2 border-white/20 rounded-lg px-8 py-4">
+          <p class="text-lg">Scottish Charity Number: SC05021</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

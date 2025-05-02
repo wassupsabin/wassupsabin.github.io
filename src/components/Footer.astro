@@ -1,0 +1,138 @@
+---
+const currentYear = new Date().getFullYear();
+
+// Get Facebook Page ID from environment
+const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
+---
+
+<footer class="bg-gradient-to-br from-primary-blue to-primary-blue/95 text-white py-12 relative">
+  <!-- Decorative accent bar at the top -->
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-red via-accent-gold to-primary-red"></div>
+  
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <!-- Contact Information -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 flex items-center">
+          <span class="inline-block w-5 h-5 bg-primary-red rounded-full mr-2"></span>
+          Contact Us
+        </h3>
+        <address class="not-italic">
+          <p class="mb-2 text-gray-200">Nepalese Southside Community Glasgow</p>
+          <p class="mb-2 text-gray-200">Glasgow, Scotland</p>
+          <p class="mb-2 text-gray-200">Email: contact@nscg.org</p>
+        </address>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 flex items-center">
+          <span class="inline-block w-5 h-5 bg-accent-gold rounded-full mr-2"></span>
+          Quick Links
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/about" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+              <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="/activities" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+              <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              Activities
+            </a>
+          </li>
+          <li>
+            <a href="/donate" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+              <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              Support Us
+            </a>
+          </li>
+          <li>
+            <a href="/contact" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+              <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              Contact
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Charity Information -->
+      <div>
+        <h3 class="text-lg font-bold mb-4 flex items-center">
+          <span class="inline-block w-5 h-5 bg-mountain-gray rounded-full mr-2"></span>
+          Charity Information
+        </h3>
+        <p class="mb-2 text-gray-200">Registered Scottish Charity</p>
+        <p class="mb-4 text-gray-200">Number: SC05021</p>
+        <div class="flex space-x-4">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white bg-primary-red hover:bg-primary-red/80 transition-colors p-2 rounded-full"
+          >
+            <span class="sr-only">Facebook</span>
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-white/10 text-center">
+      <div class="flex items-center justify-center mb-4">
+        <span class="inline-block h-0.5 w-8 bg-primary-red mx-2"></span>
+        <span class="inline-block h-0.5 w-8 bg-accent-gold mx-2"></span>
+        <span class="inline-block h-0.5 w-8 bg-mountain-gray mx-2"></span>
+      </div>
+      <p class="text-gray-200">&copy; {currentYear} Nepalese Southside Community Glasgow. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Initialize Facebook SDK
+  window.fbAsyncInit = function() {
+    window.FB.init({
+      xfbml: true,
+      version: 'v18.0'
+    });
+  };
+
+  (function(d, s, id) {
+    const fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    if (!fjs?.parentNode) return;
+
+    const js = d.createElement(s) as HTMLScriptElement;
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<style>
+  /* Facebook feed responsive adjustments */
+  :global(.fb-page) {
+    @apply w-full overflow-hidden rounded-lg bg-white;
+  }
+
+  :global(.fb-page > span) {
+    @apply w-full !important;
+  }
+
+  :global(.fb-page iframe) {
+    @apply w-full !important;
+  }
+</style>

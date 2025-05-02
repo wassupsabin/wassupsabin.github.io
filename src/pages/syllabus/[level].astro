@@ -1,0 +1,18 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { level: 'beginner' } },
+    { params: { level: 'intermediate' } },
+    { params: { level: 'advanced' } }
+  ];
+}
+
+// Redirect to the main syllabus page
+const redirectUrl = '/syllabus';
+---
+
+<meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+
+<script define:vars={{redirectUrl}}>
+  window.location.href = redirectUrl;
+</script>

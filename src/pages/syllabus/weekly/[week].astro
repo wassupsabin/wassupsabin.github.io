@@ -1,0 +1,293 @@
+---
+import SyllabusLayout from '../../../layouts/SyllabusLayout.astro';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import matter from 'gray-matter';
+
+// Define interface for section content items
+interface ContentItem {
+  type: 'subheading' | 'paragraph' | 'list';
+  text?: string;
+  items?: string[];
+}
+
+// Define interface for sections
+interface Section {
+  title: string;
+  content: ContentItem[];
+}
+
+// Define interface for parsed lesson content
+interface ParsedContent {
+  title: string;
+  sections: Section[];
+}
+
+// Define interface for weekToFileName mapping
+interface WeekFileMapping {
+  [key: number]: string;
+}
+
+export async function getStaticPaths() {
+  const paths = [];
+  
+  // Generate pages for all 36 weeks
+  for (let i = 1; i <= 36; i++) {
+    paths.push({
+      params: { week: i.toString() },
+    });
+  }
+  
+  return paths;
+}
+
+// Get the week number from the URL parameter
+const { week } = Astro.params;
+const weekNumber = parseInt(week || '1');
+
+// Map of week numbers to file names (simplified for matching)
+const weekToFileName: WeekFileMapping = {
+  1: "1 Welcome to Nepal - Location, Flag, and National",
+  2: "2 Geography of Nepal - Mountains, Hills, and Terai",
+  3: "3 The People of Nepal - Major Communities and Lang",
+  4: "4 Nepali Alphabet Introduction",
+  5: "5 Numbers 1-20 in Nepali",
+  6: "6 Dashain Festival - Nepal's Biggest Celebration",
+  7: "7 Tihar Festival - Festival of Lights",
+  8: "8 Holi - Festival of Colors",
+  9: "9 Buddha Jayanti - Birth of Buddha",
+  10: "10 Teej - Women's Festival",
+  11: "11 Mount Everest and Other Famous Peaks",
+  12: "12 Animals of Nepal - Snow Leopards, Tigers, and R",
+  13: "13 National Parks and Conservation",
+  14: "14 Rivers and Lakes of Nepal",
+  15: "15 Traditional Music and Instruments",
+  16: "16 Nepali Dance Forms",
+  17: "17 Traditional Dress - Daura Suruwal and Gunyu Cho",
+  18: "18 Nepali Arts and Crafts",
+  19: "19 Nepali Food - Dal Bhat and Popular Dishes",
+  20: "20 Nepali Snacks and Street Food",
+  21: "21 Games Children Play in Nepal",
+  22: "22 Temples of Kathmandu Valley",
+  23: "23 Durbar Squares and Palace Architecture",
+  24: "24 Stupas and Buddhist Monuments",
+  25: "25 Traditional Nepali Houses",
+  26: "26 Transportation in Nepal",
+  27: "27 Sports in Nepal",
+  28: "28 Famous Nepali People",
+  29: "29 Stories and Folklore of Nepal",
+  30: "30 Important Historical Events",
+  31: "31 Weather and Seasons in Nepal",
+  32: "32 Mountains and Trekking Culture",
+  33: "33 Family Life in Nepal",
+  34: "34 Art of Making Traditional Items",
+  35: "35 Nepali School Life", 
+  36: "36 Main Occupation of Nepal Agriculture"
+};
+
+// Get titles for navigation
+const weekTitle = weekToFileName[weekNumber]?.split(' ').slice(1).join(' ') || `Week ${weekNumber}`;
+const prevWeek = weekNumber > 1 ? weekNumber - 1 : null;
+const nextWeek = weekNumber < 36 ? weekNumber + 1 : null;
+
+// Function to find the lesson file and read its content
+async function getLessonContent(): Promise<string | null> {
+  try {
+    // Base directory for content
+    const contentDir = path.join(process.cwd(), 'src/content/Syllabus for weekly classes/Syllabus details');
+    
+    // Get all files in the directory
+    const files = await fs.readdir(contentDir);
+    
+    // Find the file that matches the current week number
+    const weekPrefix = `${weekNumber} `;
+    const matchingFile = files.find(file => file.startsWith(weekPrefix));
+    
+    if (matchingFile) {
+      // Read the file content
+      const filePath = path.join(contentDir, matchingFile);
+      const fileContent = await fs.readFile(filePath, 'utf-8');
+      
+      // Parse markdown content
+      const { content } = matter(fileContent);
+      return content;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error loading lesson content:', error);
+    return null;
+  }
+}
+
+// Get lesson content
+const lessonContent = await getLessonContent();
+
+// Helper function to convert markdown sections to HTML
+function convertMarkdownSections(content: string | null): ParsedContent {
+  if (!content) return { title: '', sections: [] };
+  
+  const lines = content.split('\n');
+  let title = '';
+  const sections: Section[] = [];
+  let currentSection: Section | null = null;
+  
+  lines.forEach(line => {
+    // Main title (h1)
+    if (line.startsWith('# ')) {
+      title = line.replace('# ', '');
+    } 
+    // Section title (h2)
+    else if (line.startsWith('## ')) {
+      if (currentSection) {
+        sections.push(currentSection);
+      }
+      currentSection = {
+        title: line.replace('## ', ''),
+        content: []
+      };
+    }
+    // Section title (h3)
+    else if (line.startsWith('### ')) {
+      if (currentSection) {
+        currentSection.content.push({
+          type: 'subheading',
+          text: line.replace('### ', '')
+        });
+      }
+    }
+    // Lists
+    else if (line.trim().startsWith('- ')) {
+      if (currentSection) {
+        // Check if we already have a list started
+        const lastItem = currentSection.content[currentSection.content.length - 1];
+        if (lastItem && lastItem.type === 'list' && lastItem.items) {
+          lastItem.items.push(line.trim().replace('- ', ''));
+        } else {
+          currentSection.content.push({
+            type: 'list',
+            items: [line.trim().replace('- ', '')]
+          });
+        }
+      }
+    }
+    // Regular paragraph
+    else if (line.trim() !== '') {
+      if (currentSection) {
+        currentSection.content.push({
+          type: 'paragraph',
+          text: line
+        });
+      }
+    }
+  });
+  
+  if (currentSection) {
+    sections.push(currentSection);
+  }
+  
+  return { title, sections };
+}
+
+// Parse the lesson content
+const { title: lessonTitle, sections } = convertMarkdownSections(lessonContent);
+---
+
+<SyllabusLayout
+  title={`Week ${weekNumber}: ${weekTitle}`}
+  description={`Lesson plan for week ${weekNumber} of the Nepali language and culture curriculum`}>
+  
+  <div class="prose prose-lg max-w-none">
+    <div class="flex justify-between items-center mb-6">
+      <a 
+        href="/syllabus/full-syllabus"
+        class="inline-flex items-center text-primary-blue hover:underline"
+      >
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+        </svg>
+        Back to Full Syllabus
+      </a>
+      
+      <span class="text-gray-500 font-medium">Week {weekNumber} of 36</span>
+    </div>
+    
+    <h1 class="text-4xl font-bold mb-8">{lessonTitle || `Week ${weekNumber}: ${weekTitle}`}</h1>
+
+    {!lessonContent && (
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8">
+        <div class="flex">
+          <svg class="w-6 h-6 text-yellow-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <p>
+            <span class="font-bold">Note:</span> Detailed lesson plan for this week is being prepared. 
+            Please check back later or contact us for more information.
+          </p>
+        </div>
+      </div>
+    )}
+    
+    {sections.map(section => (
+      <div class="mb-10">
+        <h2 class="text-2xl font-bold mb-4">{section.title}</h2>
+        
+        <div class="space-y-4">
+          {section.content.map(item => (
+            <>
+              {item.type === 'subheading' && (
+                <h3 class="text-xl font-bold mt-6">{item.text}</h3>
+              )}
+              
+              {item.type === 'paragraph' && (
+                <p>{item.text}</p>
+              )}
+              
+              {item.type === 'list' && item.items && (
+                <ul class="list-disc pl-6 space-y-2">
+                  {item.items.map(listItem => (
+                    <li>{listItem}</li>
+                  ))}
+                </ul>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
+    ))}
+    
+    <!-- Lesson Navigation -->
+    <div class="border-t pt-8 mt-12">
+      <div class="flex justify-between">
+        {prevWeek ? (
+          <a 
+            href={`/syllabus/weekly/${prevWeek}`}
+            class="inline-flex items-center px-4 py-2 border border-primary-blue text-primary-blue rounded-md hover:bg-primary-blue hover:text-white transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Previous Lesson
+          </a>
+        ) : (
+          <div></div>
+        )}
+        
+        {nextWeek ? (
+          <a 
+            href={`/syllabus/weekly/${nextWeek}`}
+            class="inline-flex items-center px-4 py-2 border border-primary-blue text-primary-blue rounded-md hover:bg-primary-blue hover:text-white transition-colors"
+          >
+            Next Lesson
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        ) : (
+          <div></div>
+        )}
+      </div>
+    </div>
+  </div>
+</SyllabusLayout>
+

@@ -1,0 +1,133 @@
+---
+import SyllabusLayout from '../../layouts/SyllabusLayout.astro';
+
+const programFeatures = [
+  {
+    title: 'Native Speakers',
+    description: 'Learn from experienced native Nepali speakers',
+    icon: '👨‍🏫'
+  },
+  {
+    title: 'Small Groups',
+    description: 'Small class sizes for personalized attention',
+    icon: '👥'
+  },
+  {
+    title: 'Cultural Context',
+    description: 'Learn language within cultural context',
+    icon: '🏺'
+  },
+  {
+    title: 'Practice Sessions',
+    description: 'Regular conversation practice sessions',
+    icon: '💭'
+  }
+];
+
+const syllabusTopics = [
+  'Nepali Alphabet and Pronunciation',
+  'Basic Greetings and Introductions',
+  'Numbers and Counting',
+  'Family Vocabulary and Relationships',
+  'Common Phrases for Daily Communication',
+  'Basic Grammar Structures',
+  'Cultural Customs and Etiquette',
+  'Food and Dining Vocabulary',
+  'Days, Months, and Time Expressions',
+  'Travel and Direction Terms'
+];
+---
+
+<SyllabusLayout
+  title="Nepali Language School"
+  description="Learn Nepali language with our structured curriculum">
+  
+  <div class="prose prose-lg max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Nepali Language School</h1>
+    
+    <div class="bg-mountain-gray/5 rounded-lg p-6 mb-8">
+      <p class="text-xl leading-relaxed">
+        Welcome to our Nepali language program! We offer a structured course designed to 
+        help you develop practical language skills while immersing you in Nepalese culture.
+      </p>
+      
+      <div class="mt-6 text-center">
+        <a 
+          href="/syllabus/full-syllabus"
+          class="inline-block bg-primary-blue text-white px-8 py-3 rounded-md font-medium hover:bg-primary-blue/90 transition-colors"
+        >
+          Click Here for Full Syllabus
+        </a>
+        <p class="mt-2 text-sm text-gray-600">View our complete 36-week curriculum</p>
+      </div>
+    </div>
+
+    <!-- Program Features -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
+      {programFeatures.map(feature => (
+        <div class="flex items-start space-x-4 p-4 rounded-lg bg-white shadow-sm">
+          <div class="text-3xl">{feature.icon}</div>
+          <div>
+            <h3 class="font-bold text-lg">{feature.title}</h3>
+            <p class="text-gray-700">{feature.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Course Content -->
+    <h2 class="text-2xl font-bold mb-6">Course Content</h2>
+    
+    <div class="bg-white shadow-sm rounded-lg p-6">
+      <p class="mb-4">
+        Our Nepali language course covers essential topics to help you communicate effectively.
+        The curriculum is designed to give you a strong foundation in the language through
+        interactive lessons and cultural immersion.
+      </p>
+      
+      <h3 class="text-xl font-bold mb-4">Topics Include:</h3>
+      
+      <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 list-disc list-inside mb-4">
+        {syllabusTopics.map(topic => (
+          <li class="text-gray-700">{topic}</li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Class Information -->
+    <div class="bg-white shadow-sm rounded-lg p-6 mt-12">
+      <h2 class="text-2xl font-bold mb-6">Class Information</h2>
+      
+      <div class="space-y-4">
+        <div>
+          <h3 class="font-bold">Class Schedule</h3>
+          <p>Classes are held on weekends from 10:00 AM to 12:00 PM.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold">Location</h3>
+          <p>All classes are held at our community center in Glasgow's Southside.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold">Materials</h3>
+          <p>Learning materials are provided in both digital and printed formats.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-primary-blue text-white rounded-lg p-8 mt-12 text-center">
+      <h2 class="text-2xl font-bold mb-4">Ready to Start Learning?</h2>
+      <p class="text-lg mb-6">
+        Interested in joining our Nepali language classes? Please get in touch with us for enrollment information and upcoming class schedules.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-white text-primary-blue font-medium px-8 py-3 rounded-md hover:bg-accent-gold hover:text-white transition-colors"
+      >
+        Contact Us to Enroll
+      </a>
+    </div>
+  </div>
+</SyllabusLayout>

@@ -1,0 +1,66 @@
+---
+import SyllabusLayout from '../../layouts/SyllabusLayout.astro';
+
+const faqs = [
+  {
+    question: 'How long are the language classes?',
+    answer: 'Each class session is 90 minutes long, with a short break in the middle.'
+  },
+  {
+    question: 'What materials do I need for the classes?',
+    answer: 'We provide all essential learning materials, including textbooks and worksheets. You only need to bring a notebook and pen.'
+  },
+  {
+    question: 'Can I join a class mid-term?',
+    answer: 'Yes, we accept new students throughout the year. Our teachers will help you catch up with the current class material.'
+  },
+  {
+    question: 'How much does it cost?',
+    answer: 'Classes are £5 per session, with concessions available for students and low-income families. Contact us for more information about financial assistance.'
+  },
+  {
+    question: 'Do you offer online classes?',
+    answer: 'Currently, all our classes are conducted in-person at our community center. However, we provide online resources to support your learning.'
+  },
+  {
+    question: 'What is the class structure like?',
+    answer: 'Our classes are designed to be interactive and engaging, with a focus on practical communication skills. Each session includes vocabulary, grammar, conversation practice, and cultural elements.'
+  },
+  {
+    question: 'How long is the course?',
+    answer: 'The complete course typically runs for 10-12 weeks per term, with three terms per year.'
+  },
+  {
+    question: 'Is there homework?',
+    answer: 'Yes, we provide weekly homework assignments to reinforce your learning. These typically take 1-2 hours per week to complete.'
+  }
+];
+---
+
+<SyllabusLayout title="FAQ" description="Frequently asked questions about our Nepali language classes">
+  <div class="prose prose-lg max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Frequently Asked Questions</h1>
+    
+    <div class="space-y-8">
+      {faqs.map(faq => (
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-bold mb-4">{faq.question}</h2>
+          <p class="text-gray-700">{faq.answer}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 bg-primary-blue text-white rounded-lg p-8 text-center">
+      <h2 class="text-2xl font-bold mb-4">Still Have Questions?</h2>
+      <p class="mb-6">
+        Can't find the answer you're looking for? Please feel free to contact us.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-white text-primary-blue px-8 py-3 rounded-md font-medium hover:bg-accent-gold hover:text-white transition-colors"
+      >
+        Contact Us
+      </a>
+    </div>
+  </div>
+</SyllabusLayout>

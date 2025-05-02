@@ -1,0 +1,340 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FacebookFeed from '../components/FacebookFeed.astro';
+import OptimizedImage from '../components/OptimizedImage.astro';
+import LoadingSpinner from '../components/LoadingSpinner.astro';
+
+const upcomingEvents = [
+  {
+    title: 'Dashain Celebration',
+    date: 'October 15, 2025',
+    description: 'Join us for our annual Dashain celebration with cultural performances and traditional food',
+    image: '/images/events/dashain.jpg'
+  },
+  {
+    title: 'Nepali Pathsala',
+    date: 'September 1, 2025',
+    description: 'Learn about our Nepali language programs and meet our teachers',
+    image: '/images/events/school.jpg'
+  }
+];
+
+const features = [
+  {
+    title: 'Language School',
+    description: 'Learn Nepali language from native speakers in structured classes',
+    icon: '📚',
+    link: '/syllabus',
+    color: 'primary-blue'
+  },
+  {
+    title: 'Cultural Events',
+    description: 'Celebrate Nepalese festivals and traditions with our community',
+    icon: '🎭',
+    link: '/activities',
+    color: 'primary-red'
+  },
+  {
+    title: 'Community Support',
+    description: 'Access resources and support for the Nepalese community in Glasgow',
+    icon: '🤝',
+    link: '/about',
+    color: 'accent-gold'
+  }
+];
+
+const stats = [
+  { value: '200+', label: 'Community Members' },
+  { value: '50+', label: 'Language Students' },
+  { value: '10+', label: 'Cultural Events per Year' },
+  { value: '5', label: 'Years of Service' }
+];
+---
+
+<Layout
+  title="Home"
+  description="Welcome to Nepalese Southside Community Glasgow - Supporting and connecting the Nepalese community in Glasgow's Southside">
+
+  <!-- Hero Section with fixed background approach -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="container mx-auto px-4 py-20 text-white">
+        <div class="max-w-3xl">
+          <h1 class="text-5xl md:text-6xl font-bold mb-6">
+            Welcome to Nepalese Southside Community Glasgow
+          </h1>
+          <p class="text-xl md:text-2xl mb-8">
+            Connecting and supporting the Nepalese community in Glasgow's Southside through culture, education, and community service
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="/about"
+              class="bg-white text-primary-blue px-8 py-3 rounded-md font-medium hover:bg-accent-gold hover:text-white transition-colors"
+            >
+              Learn More
+            </a>
+            <a
+              href="/contact"
+              class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md font-medium hover:bg-primary-red hover:text-white transition-colors"
+            >
+              Get Involved
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-4">What We Offer</h2>
+      <div class="w-24 h-1 bg-primary-red mx-auto mb-12"></div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {features.map(feature => (
+          <a
+            href={feature.link}
+            class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-[var(--color)]"
+            style={`--color: var(--color-${feature.color})`}
+          >
+            <div class="text-4xl mb-4">{feature.icon}</div>
+            <h3 class="text-xl font-bold mb-2">{feature.title}</h3>
+            <p class="text-gray-700">{feature.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-20 bg-gradient-to-r from-primary-blue to-primary-red text-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
+        {stats.map(stat => (
+          <div>
+            <div class="text-4xl font-bold mb-2">{stat.value}</div>
+            <div class="text-sm">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-4">
+        <h2 class="text-3xl font-bold">Upcoming Events</h2>
+        <div class="w-24 h-1 bg-accent-gold mx-auto mt-4 mb-8"></div>
+        <p class="text-xl text-gray-700">Join us at our next community gathering</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {upcomingEvents.map((event, index) => (
+          <div class="bg-white rounded-lg shadow-md overflow-hidden border-b-4 border-b-[var(--color)]" style={`--color: ${index % 2 === 0 ? 'var(--color-primary-blue)' : 'var(--color-primary-red)'}`}>
+            <div class="aspect-w-16 aspect-h-9">
+              <OptimizedImage
+                src={event.image}
+                alt={event.title}
+                aspectRatio={16/9}
+                sizes="(min-width: 768px) 384px, calc(100vw - 32px)"
+                class="w-full h-full"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">{event.title}</h3>
+              <p class={`font-medium mb-4 ${index % 2 === 0 ? 'text-primary-blue' : 'text-primary-red'}`}>{event.date}</p>
+              <p class="text-gray-700 mb-4">{event.description}</p>
+              <a
+                href="/activities"
+                class={`font-medium hover:underline ${index % 2 === 0 ? 'text-primary-blue hover:text-primary-blue/80' : 'text-primary-red hover:text-primary-red/80'}`}
+              >
+                Learn More →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href="/activities"
+          class="inline-block bg-accent-gold text-white px-8 py-3 rounded-md font-medium hover:bg-accent-gold/90 transition-colors"
+        >
+          View All Events
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facebook Feed -->
+  <section class="py-20 bg-mountain-gray/5">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-4">
+        <h2 class="text-3xl font-bold">Latest Updates</h2>
+        <div class="w-24 h-1 bg-primary-blue mx-auto mt-4 mb-8"></div>
+        <p class="text-xl text-gray-700 dark:text-gray-300">Stay updated with our latest news and events</p>
+      </div>
+      <FacebookFeed />
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-20 bg-gradient-to-br from-primary-red/5 to-primary-blue/5">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Stay Connected</h2>
+        <p class="text-xl text-gray-700 dark:text-gray-300 mb-8">
+          Subscribe to our newsletter for updates on events and community news
+        </p>
+
+        <form 
+          id="newsletter-form"
+          class="max-w-md mx-auto"
+          novalidate
+        >
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1">
+              <div class="relative">
+                <input
+                  type="email"
+                  id="newsletter-email"
+                  placeholder="Enter your email"
+                  class="w-full px-4 py-2 rounded-md border-gray-300 dark:border-gray-700 focus:ring-primary-red focus:border-primary-red dark:bg-dark dark:text-white"
+                  required
+                  aria-describedby="newsletter-error"
+                />
+                <div 
+                  id="newsletter-error" 
+                  class="hidden absolute -bottom-6 left-0 text-sm text-red-600 dark:text-red-400"
+                  role="alert"
+                ></div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="bg-primary-red text-white px-6 py-2 rounded-md font-medium hover:bg-primary-red/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px]"
+            >
+              <span id="submit-text">Subscribe</span>
+              <span id="submit-loading" class="hidden">
+                <LoadingSpinner size="sm" />
+              </span>
+            </button>
+          </div>
+        </form>
+
+        <div 
+          id="success-message" 
+          class="hidden mt-4 p-4 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-md"
+          role="alert"
+        ></div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { AriaAnnouncer } from '../scripts/a11y';
+  import { subscribeToNewsletter } from '../utils/newsletter';
+  import { 
+    validateEmail,
+    showFormError,
+    showFormSuccess,
+    clearFormError
+  } from '../utils/formValidation';
+
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const emailInput = document.getElementById('newsletter-email') as HTMLInputElement;
+  const errorDiv = document.getElementById('newsletter-error');
+  const successDiv = document.getElementById('success-message');
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
+  const submitText = document.getElementById('submit-text');
+  const submitLoading = document.getElementById('submit-loading');
+  const announcer = AriaAnnouncer.getInstance();
+
+  const setLoading = (isLoading: boolean) => {
+    if (submitBtn && submitText && submitLoading) {
+      submitBtn.disabled = isLoading;
+      submitText.classList.toggle('hidden', isLoading);
+      submitLoading.classList.toggle('hidden', !isLoading);
+    }
+  };
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearFormError(errorDiv, emailInput);
+    successDiv?.classList.add('hidden');
+
+    const email = emailInput?.value.trim();
+    if (!email) {
+      showFormError(errorDiv, 'Please enter your email address', announcer);
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      showFormError(errorDiv, 'Please enter a valid email address', announcer);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const result = await subscribeToNewsletter({ email });
+      
+      if (result.success) {
+        form.reset();
+        showFormSuccess(successDiv, result.message || 'Thank you for subscribing to our newsletter!', announcer);
+        successDiv?.focus();
+      } else {
+        const errorMessage = result.errors?.[0]?.message || 'Failed to subscribe. Please try again.';
+        showFormError(errorDiv, errorMessage, announcer);
+      }
+    } catch (error) {
+      showFormError(errorDiv, 'Failed to subscribe. Please try again.', announcer);
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  // Clear error on input
+  emailInput?.addEventListener('input', () => {
+    clearFormError(errorDiv, emailInput);
+  });
+</script>
+
+<style>
+  :root {
+    --color-primary-blue: #1e3a8a;
+    --color-primary-red: #e53e3e;
+    --color-accent-gold: #d69e2e;
+    --color-mountain-gray: #718096;
+  }
+  
+  .hero-section {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background-image: url('/images/general/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(30, 58, 138, 0.8), rgba(229, 62, 62, 0.6));
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+</style>

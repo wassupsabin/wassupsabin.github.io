@@ -1,0 +1,118 @@
+---
+import SyllabusLayout from '../../layouts/SyllabusLayout.astro';
+
+// Define all 36 weeks of the curriculum
+const weeklyTopics = [
+  { week: 1, title: "Welcome to Nepal - Location, Flag, and National Symbols" },
+  { week: 2, title: "Geography of Nepal - Mountains, Hills, and Terai" },
+  { week: 3, title: "The People of Nepal - Major Communities and Languages" },
+  { week: 4, title: "Nepali Alphabet Introduction" },
+  { week: 5, title: "Numbers 1-20 in Nepali" },
+  { week: 6, title: "Dashain Festival - Nepal's Biggest Celebration" },
+  { week: 7, title: "Tihar Festival - Festival of Lights" },
+  { week: 8, title: "Holi - Festival of Colors" },
+  { week: 9, title: "Buddha Jayanti - Birth of Buddha" },
+  { week: 10, title: "Teej - Women's Festival" },
+  { week: 11, title: "Mount Everest and Other Famous Peaks" },
+  { week: 12, title: "Animals of Nepal - Snow Leopards, Tigers, and Rhinos" },
+  { week: 13, title: "National Parks and Conservation" },
+  { week: 14, title: "Rivers and Lakes of Nepal" },
+  { week: 15, title: "Traditional Music and Instruments" },
+  { week: 16, title: "Nepali Dance Forms" },
+  { week: 17, title: "Traditional Dress - Daura Suruwal and Gunyu Cholo" },
+  { week: 18, title: "Nepali Arts and Crafts" },
+  { week: 19, title: "Nepali Food - Dal Bhat and Popular Dishes" },
+  { week: 20, title: "Nepali Snacks and Street Food" },
+  { week: 21, title: "Games Children Play in Nepal" },
+  { week: 22, title: "Temples of Kathmandu Valley" },
+  { week: 23, title: "Durbar Squares and Palace Architecture" },
+  { week: 24, title: "Stupas and Buddhist Monuments" },
+  { week: 25, title: "Traditional Nepali Houses" },
+  { week: 26, title: "Transportation in Nepal" },
+  { week: 27, title: "Sports in Nepal" },
+  { week: 28, title: "Famous Nepali People" },
+  { week: 29, title: "Stories and Folklore of Nepal" },
+  { week: 30, title: "Important Historical Events" },
+  { week: 31, title: "Weather and Seasons in Nepal" },
+  { week: 32, title: "Mountains and Trekking Culture" },
+  { week: 33, title: "Family Life in Nepal" },
+  { week: 34, title: "Art of Making Traditional Items" },
+  { week: 35, title: "Nepali School Life" },
+  { week: 36, title: "Main Occupation of Nepal: Agriculture" }
+];
+
+// Group topics by term (12 weeks per term)
+const terms = [
+  { name: "Term 1", topics: weeklyTopics.slice(0, 12) },
+  { name: "Term 2", topics: weeklyTopics.slice(12, 24) },
+  { name: "Term 3", topics: weeklyTopics.slice(24, 36) }
+];
+---
+
+<SyllabusLayout
+  title="Full Syllabus"
+  description="36-week Nepali language and culture curriculum">
+  
+  <div class="prose prose-lg max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Full Syllabus - 36 Week Curriculum</h1>
+    
+    <div class="bg-mountain-gray/5 rounded-lg p-6 mb-8">
+      <p class="text-xl">
+        Our comprehensive curriculum covers both Nepali language learning and cultural topics.
+        The course is divided into three terms of 12 weeks each, offering a balanced approach to
+        developing language skills while gaining knowledge about Nepal's rich culture and heritage.
+      </p>
+    </div>
+
+    <div class="space-y-12">
+      {terms.map((term, index) => (
+        <div>
+          <h2 class="text-3xl font-bold mb-6">{term.name}</h2>
+          
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <table class="min-w-full">
+              <thead class="bg-gray-50 border-b">
+                <tr>
+                  <th class="py-4 px-6 text-left text-sm font-medium text-gray-500">Week</th>
+                  <th class="py-4 px-6 text-left text-sm font-medium text-gray-500">Topic</th>
+                  <th class="py-4 px-6 text-right text-sm font-medium text-gray-500">View Details</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                {term.topics.map(topic => (
+                  <tr class="hover:bg-gray-50">
+                    <td class="py-4 px-6 text-sm font-medium text-gray-900">Week {topic.week}</td>
+                    <td class="py-4 px-6 text-sm text-gray-700">{topic.title}</td>
+                    <td class="py-4 px-6 text-right">
+                      <a 
+                        href={`/syllabus/weekly/${topic.week}`}
+                        class="inline-flex items-center px-3 py-1 border border-primary-blue text-primary-blue text-sm font-medium rounded-md hover:bg-primary-blue hover:text-white transition-colors"
+                      >
+                        View Lesson
+                        <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex justify-center mt-12">
+      <a 
+        href="/syllabus"
+        class="inline-flex items-center px-6 py-3 bg-white border-2 border-primary-blue text-primary-blue font-medium rounded-md hover:bg-primary-blue hover:text-white transition-colors"
+      >
+        <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+        </svg>
+        Back to Syllabus Overview
+      </a>
+    </div>
+  </div>
+</SyllabusLayout>

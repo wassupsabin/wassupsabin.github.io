@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	canonicalURL?: string;
+}
+
+const {
+	title,
+	description = 'Nepalese Southside Community Glasgow - Connecting and supporting the Nepalese community in Glasgow\'s Southside',
+	image = '/images/general/hero-bg.jpg',
+	type = 'website',
+	canonicalURL = Astro.url.href
+} = Astro.props;
+
+const siteTitle = 'Nepalese Southside Community Glasgow';
+const fullTitle = `${title} | ${siteTitle}`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Primary Meta Tags -->
+		<title>{fullTitle}</title>
+		<meta name="title" content={fullTitle} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+
+		<!-- Icons -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#1e3a8a" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+		<meta property="og:site_name" content={siteTitle} />
+		<meta property="og:locale" content="en_GB" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={fullTitle} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+		<!-- Additional Meta -->
+		<meta name="generator" content={Astro.generator} />
+		<meta name="author" content={siteTitle} />
+		<meta name="geo.region" content="GB-GLG" />
+		<meta name="geo.placename" content="Glasgow" />
+		
+		<!-- JSON-LD -->
+		<script type="application/ld+json">
+			{
+				JSON.stringify({
+					"@context": "https://schema.org",
+					"@type": "Organization",
+					"name": siteTitle,
+					"url": Astro.url.origin,
+					"logo": new URL("/favicon.svg", Astro.url),
+					"description": description,
+					"address": {
+						"@type": "PostalAddress",
+						"addressLocality": "Glasgow",
+						"addressRegion": "Scotland",
+						"addressCountry": "GB"
+					},
+					"contactPoint": {
+						"@type": "ContactPoint",
+						"telephone": "",
+						"contactType": "customer service",
+						"email": "contact@nscg.org"
+					},
+					"sameAs": [
+						"https://facebook.com"  // Add your social media URLs here
+					]
+				})
+			}
+		</script>
+	</head>
+	<body class="bg-white text-gray-900 transition-colors">
+		<a href="#main-content" id="skip-to-main" class="skip-link">
+			Skip to main content
+		</a>
+		<div class="min-h-screen flex flex-col">
+			<Header />
+			<main id="main-content" class="flex-grow pt-16" tabindex="-1">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+		<script>
+			import { initializeA11y } from '../scripts/a11y';
+			
+			// Initialize accessibility features
+			document.addEventListener('DOMContentLoaded', () => {
+				initializeA11y();
+			});
+		</script>
+	</body>
+</html>

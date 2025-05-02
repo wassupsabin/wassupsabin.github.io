@@ -1,0 +1,47 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  sizes?: string;
+  widths?: number[];
+  aspectRatio?: number;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  class: className = '',
+  sizes = '(min-width: 1280px) 1200px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, 100vw',
+  widths = [320, 640, 768, 1024, 1280, 1536],
+  aspectRatio,
+  loading = 'lazy',
+  fetchpriority = 'auto'
+} = Astro.props;
+
+// Generate srcset for different screen sizes
+const srcSet = widths
+  .map(width => `${src}?w=${width} ${width}w`)
+  .join(', ');
+
+// Calculate padding-top for aspect ratio if provided
+const paddingTop = aspectRatio ? `${(1 / aspectRatio) * 100}%` : undefined;
+---
+
+<div class:list={["relative", className]} style={paddingTop ? { paddingTop } : undefined}>
+  <img
+    src={`${src}?w=${Math.min(...widths)}`}
+    srcset={srcSet}
+    {sizes}
+    {alt}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    class:list={[
+      "w-full h-full",
+      aspectRatio ? "absolute inset-0 object-cover" : "block"
+    ]}
+  />
+</div>
