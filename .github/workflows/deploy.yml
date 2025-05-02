@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,12 +23,11 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v1
         with:
-          path: . # Replace with your project's root directory
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+          path: . # The root directory of your Astro project
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: build-artifacts
-          path: ./path-to-artifacts # Replace this with the path to your build artifacts
+          path: ./dist # The Astro default build output directory
 
   deploy:
     needs: build
@@ -35,4 +38,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
