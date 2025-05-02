@@ -23,8 +23,9 @@ export default defineConfig({
     })
   ],
   prefetch: {
-    prefetchAll: true,
+    prefetchAll: false,
     defaultStrategy: 'hover'
+    // Note: 'include' property is not supported in this version of Astro
   },
   output: 'static',
   image: {
