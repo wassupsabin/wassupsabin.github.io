@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Install, build, and upload your site
         uses: withastro/action@v1
@@ -27,7 +27,7 @@ jobs:
           path: . # The root directory of your Astro project
       
       - name: Upload Pages artifact
-        uses: actions/upload-artifact@v3 # Updated to use a specific version
+        uses: actions/upload-artifact@v4  # Updated from v3 to v4
         with:
           name: pages-artifact
           path: ./dist # The Astro default build output directory
@@ -41,4 +41,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3  # Updated from v2 to v3
