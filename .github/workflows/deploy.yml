@@ -21,21 +21,21 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       
-      # Try using a more specific version of withastro/action
-      - name: Install, build, and upload your site
-        uses: withastro/action@v1.0.1
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          path: . # The root directory of your Astro project
-          # Add this to use GitHub's upload-pages-artifact which might avoid the issue
-          artifact-name: pages-artifact
-      
-      # Let's try removing this step since withastro/action might be handling it
-      # and causing a conflict
-      # - name: Upload Pages artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: pages-artifact
-      #     path: ./dist
+          node-version: 18
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
   deploy:
     needs: build
