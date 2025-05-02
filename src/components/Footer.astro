@@ -3,6 +3,19 @@ const currentYear = new Date().getFullYear();
 
 // Get Facebook Page ID from environment
 const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
 ---
 
 <footer class="bg-gradient-to-br from-primary-blue to-primary-blue/95 text-white py-12 relative">
@@ -32,7 +45,7 @@ const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
         </h3>
         <ul class="space-y-2">
           <li>
-            <a href="/about" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+            <a href={getPath('/about')} class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
               <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>
@@ -40,7 +53,7 @@ const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
             </a>
           </li>
           <li>
-            <a href="/activities" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+            <a href={getPath('/activities')} class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
               <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>
@@ -48,7 +61,7 @@ const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
             </a>
           </li>
           <li>
-            <a href="/donate" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+            <a href={getPath('/donate')} class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
               <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>
@@ -56,7 +69,7 @@ const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
             </a>
           </li>
           <li>
-            <a href="/contact" class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
+            <a href={getPath('/contact')} class="text-gray-200 hover:text-accent-gold transition-colors flex items-center">
               <svg class="w-3 h-3 text-primary-red mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>

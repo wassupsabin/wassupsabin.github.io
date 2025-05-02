@@ -1,6 +1,20 @@
 ---
 import SyllabusLayout from '../../layouts/SyllabusLayout.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 const programFeatures = [
   {
     title: 'Native Speakers',
@@ -53,7 +67,7 @@ const syllabusTopics = [
       
       <div class="mt-6 text-center">
         <a 
-          href="/syllabus/full-syllabus"
+          href={getPath('/syllabus/full-syllabus')}
           class="inline-block bg-primary-blue text-white px-8 py-3 rounded-md font-medium hover:bg-primary-blue/90 transition-colors"
         >
           Click Here for Full Syllabus
@@ -123,7 +137,7 @@ const syllabusTopics = [
         Interested in joining our Nepali language classes? Please get in touch with us for enrollment information and upcoming class schedules.
       </p>
       <a
-        href="/contact"
+        href={getPath('/contact')}
         class="inline-block bg-white text-primary-blue font-medium px-8 py-3 rounded-md hover:bg-accent-gold hover:text-white transition-colors"
       >
         Contact Us to Enroll

@@ -4,6 +4,20 @@ import FacebookFeed from '../components/FacebookFeed.astro';
 import OptimizedImage from '../components/OptimizedImage.astro';
 import LoadingSpinner from '../components/LoadingSpinner.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 const upcomingEvents = [
   {
     title: 'Dashain Celebration',
@@ -68,13 +82,13 @@ const stats = [
           </p>
           <div class="flex flex-wrap gap-4">
             <a
-              href="/about"
+              href={getPath('/about')}
               class="bg-white text-primary-blue px-8 py-3 rounded-md font-medium hover:bg-accent-gold hover:text-white transition-colors"
             >
               Learn More
             </a>
             <a
-              href="/contact"
+              href={getPath('/contact')}
               class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-md font-medium hover:bg-primary-red hover:text-white transition-colors"
             >
               Get Involved
@@ -94,7 +108,7 @@ const stats = [
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {features.map(feature => (
           <a
-            href={feature.link}
+            href={getPath(feature.link)}
             class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow border-t-4 border-t-[var(--color)]"
             style={`--color: var(--color-${feature.color})`}
           >
@@ -147,7 +161,7 @@ const stats = [
               <p class={`font-medium mb-4 ${index % 2 === 0 ? 'text-primary-blue' : 'text-primary-red'}`}>{event.date}</p>
               <p class="text-gray-700 mb-4">{event.description}</p>
               <a
-                href="/activities"
+                href={getPath('/activities')}
                 class={`font-medium hover:underline ${index % 2 === 0 ? 'text-primary-blue hover:text-primary-blue/80' : 'text-primary-red hover:text-primary-red/80'}`}
               >
                 Learn More →
@@ -159,7 +173,7 @@ const stats = [
 
       <div class="text-center mt-12">
         <a
-          href="/activities"
+          href={getPath('/activities')}
           class="inline-block bg-accent-gold text-white px-8 py-3 rounded-md font-medium hover:bg-accent-gold/90 transition-colors"
         >
           View All Events
@@ -316,7 +330,7 @@ const stats = [
     min-height: 80vh;
     display: flex;
     align-items: center;
-    background-image: url('/images/general/hero-bg.jpg');
+    background-image: url(${`${baseUrl}/images/general/hero-bg.jpg`});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -4,6 +4,20 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import matter from 'gray-matter';
 
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 // Define interface for section content items
 interface ContentItem {
   type: 'subheading' | 'paragraph' | 'list';
@@ -200,7 +214,7 @@ const { title: lessonTitle, sections } = convertMarkdownSections(lessonContent);
   <div class="prose prose-lg max-w-none">
     <div class="flex justify-between items-center mb-6">
       <a 
-        href="/syllabus/full-syllabus"
+        href={getPath('/syllabus/full-syllabus')}
         class="inline-flex items-center text-primary-blue hover:underline"
       >
         <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,7 +275,7 @@ const { title: lessonTitle, sections } = convertMarkdownSections(lessonContent);
       <div class="flex justify-between">
         {prevWeek ? (
           <a 
-            href={`/syllabus/weekly/${prevWeek}`}
+            href={getPath(`/syllabus/weekly/${prevWeek}`)}
             class="inline-flex items-center px-4 py-2 border border-primary-blue text-primary-blue rounded-md hover:bg-primary-blue hover:text-white transition-colors"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,7 +289,7 @@ const { title: lessonTitle, sections } = convertMarkdownSections(lessonContent);
         
         {nextWeek ? (
           <a 
-            href={`/syllabus/weekly/${nextWeek}`}
+            href={getPath(`/syllabus/weekly/${nextWeek}`)}
             class="inline-flex items-center px-4 py-2 border border-primary-blue text-primary-blue rounded-md hover:bg-primary-blue hover:text-white transition-colors"
           >
             Next Lesson

@@ -19,6 +19,20 @@ const {
 	canonicalURL = Astro.url.href
 } = Astro.props;
 
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 const siteTitle = 'Nepalese Southside Community Glasgow';
 const fullTitle = `${title} | ${siteTitle}`;
 ---
@@ -38,8 +52,8 @@ const fullTitle = `${title} | ${siteTitle}`;
 		<meta name="language" content="English" />
 
 		<!-- Icons -->
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/svg+xml" href={getPath('/favicon.svg')} />
+		<link rel="apple-touch-icon" sizes="180x180" href={getPath('/apple-touch-icon.png')} />
 		<meta name="theme-color" content="#1e3a8a" />
 
 		<!-- Open Graph / Facebook -->
@@ -47,7 +61,7 @@ const fullTitle = `${title} | ${siteTitle}`;
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={new URL(image, Astro.url)} />
+		<meta property="og:image" content={new URL(getPath(image), Astro.site || Astro.url.origin)} />
 		<meta property="og:site_name" content={siteTitle} />
 		<meta property="og:locale" content="en_GB" />
 
@@ -56,7 +70,7 @@ const fullTitle = `${title} | ${siteTitle}`;
 		<meta property="twitter:url" content={canonicalURL} />
 		<meta property="twitter:title" content={fullTitle} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+		<meta property="twitter:image" content={new URL(getPath(image), Astro.site || Astro.url.origin)} />
 
 		<!-- Additional Meta -->
 		<meta name="generator" content={Astro.generator} />
@@ -71,8 +85,8 @@ const fullTitle = `${title} | ${siteTitle}`;
 					"@context": "https://schema.org",
 					"@type": "Organization",
 					"name": siteTitle,
-					"url": Astro.url.origin,
-					"logo": new URL("/favicon.svg", Astro.url),
+					"url": Astro.url.origin + baseUrl,
+					"logo": new URL(getPath("/favicon.svg"), Astro.site || Astro.url.origin),
 					"description": description,
 					"address": {
 						"@type": "PostalAddress",

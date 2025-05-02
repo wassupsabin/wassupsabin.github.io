@@ -7,8 +7,9 @@ export function getStaticPaths() {
   ];
 }
 
-// Redirect to the main syllabus page
-const redirectUrl = '/syllabus';
+const baseUrl = import.meta.env.BASE_URL;
+// Redirect to the main syllabus page with base URL
+const redirectUrl = `${baseUrl}/syllabus`;
 ---
 
 <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />

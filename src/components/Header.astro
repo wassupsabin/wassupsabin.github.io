@@ -10,6 +10,19 @@ const menuItems = [
 ];
 
 const currentPath = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL;
+
+// Function to prefix paths with the base URL
+function getPath(path: string): string {
+  // If path is already absolute URL, return as is
+  if (path.startsWith('http')) return path;
+  
+  // Handle root path specially - combine with base URL
+  if (path === '/') return baseUrl || '/';
+  
+  // For other paths, ensure proper joining of base URL and path
+  return `${baseUrl}${path.startsWith('/') ? path : `/${path}`}`;
+}
 ---
 
 <header class="w-full bg-white shadow-sm fixed top-0 z-50 border-t-4 border-primary-red">
@@ -17,9 +30,9 @@ const currentPath = Astro.url.pathname;
     <div class="flex justify-between items-center h-16">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center">
-        <a href="/" class="flex items-center" aria-label="Nepalese Southside Community Glasgow">
+        <a href={getPath('/')} class="flex items-center" aria-label="Nepalese Southside Community Glasgow">
           <img 
-            src="/images/logo.png" 
+            src={getPath('/images/logo.png')} 
             alt="Nepalese Southside Community Glasgow Logo" 
             class="h-10 w-auto"
           />
@@ -30,9 +43,9 @@ const currentPath = Astro.url.pathname;
       <nav class="hidden lg:flex items-center space-x-8" aria-label="Main navigation">
         {menuItems.map(item => (
           <a 
-            href={item.path} 
+            href={getPath(item.path)} 
             class={`transition-colors ${
-              currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path)) 
+              currentPath === getPath(item.path) || (item.path !== '/' && currentPath.startsWith(getPath(item.path))) 
                 ? 'text-primary-red font-medium' 
                 : 'text-gray-700 hover:text-primary-blue'
             }`}
@@ -81,9 +94,9 @@ const currentPath = Astro.url.pathname;
     <div class="container mx-auto px-4 py-4 space-y-1">
       {menuItems.map(item => (
         <a
-          href={item.path}
+          href={getPath(item.path)}
           class={`block px-4 py-2 text-base font-medium rounded-md ${
-            currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path))
+            currentPath === getPath(item.path) || (item.path !== '/' && currentPath.startsWith(getPath(item.path)))
               ? 'text-primary-red bg-mountain-gray/5'
               : 'text-gray-700 hover:bg-gray-100'
           }`}
