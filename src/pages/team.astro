@@ -2,54 +2,164 @@
 import Layout from '../layouts/Layout.astro';
 import TeamMember from '../components/TeamMember.astro';
 
-// Placeholder data - replace with actual team member data
-const leadership = [
+// Executive Committee members
+const executiveCommittee = [
   {
-    name: 'Ram Gurung',
-    role: 'Chairperson',
-    bio: 'Community leader with 15+ years of experience in cultural organizations.',
+    name: 'Padam Lal Kharel',
+    role: 'Chairman',
+    bio: 'Leading our community initiatives and organizational direction.',
     imageUrl: '/images/team/placeholder.jpg',
     socials: {
-      email: 'chair@nscg.org'
+      email: 'chairman@nscg.org'
     }
   },
   {
-    name: 'Sita Sharma',
+    name: 'Parshuram Bhandari',
+    role: 'Vice-Chairman',
+    bio: 'Supporting our chairman and community leadership efforts.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'vicechairman@nscg.org'
+    }
+  },
+  {
+    name: 'Devendra Gaire',
     role: 'Secretary',
-    bio: 'Dedicated to fostering community connections and managing our programs.',
+    bio: 'Managing organizational communications and administration.',
     imageUrl: '/images/team/placeholder.jpg',
     socials: {
       email: 'secretary@nscg.org'
     }
   },
   {
-    name: 'Krishna Paudel',
+    name: 'Kabindra Basyaal',
+    role: 'Vice Secretary',
+    bio: 'Assisting with organizational documentation and communication.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'vicesecretary@nscg.org'
+    }
+  },
+  {
+    name: 'Arjun Aryal',
     role: 'Treasurer',
-    bio: 'Financial professional ensuring transparent management of our resources.',
+    bio: 'Managing our financial resources and ensuring fiscal responsibility.',
     imageUrl: '/images/team/placeholder.jpg',
     socials: {
       email: 'treasurer@nscg.org'
     }
+  },
+  {
+    name: 'Kamal Sapkota',
+    role: 'Vice Treasurer',
+    bio: 'Supporting our financial management and reporting.',
+    imageUrl: '/images/team/placeholder.jpg',
+    socials: {
+      email: 'vicetreasurer@nscg.org'
+    }
   }
 ];
 
-const volunteers = [
+// Management Committee Members
+const managementCommittee = [
   {
-    name: 'Maya Thapa',
-    role: 'Language School Coordinator',
-    bio: 'Experienced educator coordinating our Nepali language programs.',
+    name: 'Ganga Sapkota',
+    role: 'Management Committee Member',
+    bio: 'Contributing to our community management and planning.',
     imageUrl: '/images/team/placeholder.jpg'
   },
   {
-    name: 'Hari Limbu',
-    role: 'Cultural Events Coordinator',
-    bio: 'Organizing and managing our cultural celebrations and events.',
+    name: 'Krishna Prasad Sapkota',
+    role: 'Management Committee Member',
+    bio: 'Supporting our community programs and initiatives.',
     imageUrl: '/images/team/placeholder.jpg'
   },
   {
-    name: 'Prajwal Rai',
-    role: 'Youth Program Leader',
-    bio: 'Working with young community members to organize activities and events.',
+    name: 'Ghaneshyam Bhusal',
+    role: 'Management Committee Member',
+    bio: 'Helping develop and implement community projects.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Purushottam Aryal',
+    role: 'Management Committee Member',
+    bio: 'Contributing to organizational planning and execution.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Asmita Kharel',
+    role: 'Management Committee Member',
+    bio: 'Supporting our community engagement activities.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Goma Aryal',
+    role: 'Management Committee Member',
+    bio: 'Contributing to community welfare and development.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Gopal Sapkota',
+    role: 'Management Committee Member',
+    bio: 'Assisting with organizational initiatives and programs.',
+    imageUrl: '/images/team/placeholder.jpg'
+  }
+];
+
+// Advisors
+const advisors = [
+  {
+    name: 'Bhim Sapkota',
+    role: 'Advisor',
+    bio: 'Providing strategic guidance to our organization.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Ram Prasad Kandel',
+    role: 'Advisor',
+    bio: 'Offering expertise and counsel to our leadership team.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Min Kharel',
+    role: 'Advisor',
+    bio: 'Supporting our community development with valuable insights.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Chabi Lal Aryal',
+    role: 'Advisor',
+    bio: 'Guiding our organizational decisions and growth.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Dolly Bhatta',
+    role: 'Advisor',
+    bio: 'Providing expertise to strengthen our community initiatives.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Dilu Gaire',
+    role: 'Advisor',
+    bio: 'Contributing insights to our community programs.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Karan Karki',
+    role: 'Advisor',
+    bio: 'Supporting our organizational development and planning.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Tanka Sapkota',
+    role: 'Advisor',
+    bio: 'Offering guidance on community engagement and growth.',
+    imageUrl: '/images/team/placeholder.jpg'
+  },
+  {
+    name: 'Narayan Dhakal',
+    role: 'Advisor',
+    bio: 'Providing strategic counsel to our leadership team.',
     imageUrl: '/images/team/placeholder.jpg'
   }
 ];
@@ -71,24 +181,36 @@ const volunteers = [
     </div>
   </section>
 
-  <!-- Leadership Team -->
+  <!-- Executive Committee Team -->
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Leadership Team</h2>
+      <h2 class="text-3xl font-bold text-center mb-12">Executive Committee</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {leadership.map(member => (
+        {executiveCommittee.map(member => (
           <TeamMember {...member} />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Volunteer Team -->
+  <!-- Management Committee -->
   <section class="py-16 bg-mountain-gray/10">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Our Volunteers</h2>
+      <h2 class="text-3xl font-bold text-center mb-12">Management Committee Members</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {volunteers.map(member => (
+        {managementCommittee.map(member => (
+          <TeamMember {...member} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Advisors -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Advisors</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {advisors.map(member => (
           <TeamMember {...member} />
         ))}
       </div>

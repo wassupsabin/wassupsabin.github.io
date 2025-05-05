@@ -17,22 +17,24 @@ const { name, role, bio, imageUrl, socials = {} } = Astro.props;
 ---
 
 <div class="bg-white dark:bg-dark-card rounded-lg shadow-md overflow-hidden">
-  <div class="aspect-w-1 aspect-h-1">
-    <OptimizedImage
-      src={imageUrl}
-      alt={`${name} - ${role}`}
-      aspectRatio={1}
-      class="w-full h-full"
-      sizes="(min-width: 1280px) 384px, (min-width: 1024px) 320px, (min-width: 768px) 352px, calc(100vw - 32px)"
-    />
+  <div class="flex justify-center pt-6">
+    <div class="w-32 h-32 rounded-full overflow-hidden">
+      <OptimizedImage
+        src={imageUrl}
+        alt={`${name} - ${role}`}
+        aspectRatio={1}
+        class="w-full h-full object-cover object-center"
+        sizes="(min-width: 1024px) 128px, 128px"
+      />
+    </div>
   </div>
-  <div class="p-6">
-    <h3 class="text-xl font-bold mb-2 dark:text-white">{name}</h3>
-    <p class="text-primary-blue dark:text-accent-gold font-medium mb-4">{role}</p>
+  <div class="p-6 text-center">
+    <h3 class="text-2xl font-bold mb-1 text-primary-blue dark:text-accent-gold">{name}</h3>
+    <p class="text-gray-800 dark:text-gray-200 font-medium mb-4">{role}</p>
     <p class="text-gray-700 dark:text-gray-300 mb-4">{bio}</p>
     
     {Object.keys(socials).length > 0 && (
-      <div class="flex space-x-4">
+      <div class="flex justify-center space-x-4">
         {socials.facebook && (
           <a
             href={socials.facebook}

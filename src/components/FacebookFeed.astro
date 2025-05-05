@@ -1,62 +1,100 @@
 ---
-const FACEBOOK_PAGE_ID = import.meta.env.PUBLIC_FACEBOOK_PAGE_ID;
+// Facebook page embed component with fallback for local development
+const isLocalDevelopment = import.meta.env.DEV;
 ---
 
 <div class="facebook-feed">
   <div class="max-w-3xl mx-auto">
-    <div
-      class="fb-page"
-      data-href={`https://www.facebook.com/${FACEBOOK_PAGE_ID}`}
-      data-tabs="timeline"
-      data-width="500"
-      data-height="600"
-      data-small-header="false"
-      data-adapt-container-width="true"
-      data-hide-cover="false"
+    {isLocalDevelopment && (
+      <div class="dev-notice">
+        <p>Facebook feed preview doesn't appear in local development mode.</p>
+        <p>This content will display correctly when deployed to production.</p>
+        <a 
+          href="https://www.facebook.com/profile.php?id=100092667380174"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="fb-link"
+        >
+          View our Facebook page →
+        </a>
+      </div>
+    )}
+    
+    <div 
+      class="fb-page" 
+      data-href="https://www.facebook.com/profile.php?id=100092667380174" 
+      data-tabs="timeline" 
+      data-width="500" 
+      data-height="600" 
+      data-small-header="false" 
+      data-adapt-container-width="true" 
+      data-hide-cover="false" 
       data-show-facepile="true"
     >
       <blockquote 
-        cite={`https://www.facebook.com/${FACEBOOK_PAGE_ID}`}
+        cite="https://www.facebook.com/profile.php?id=100092667380174" 
         class="fb-xfbml-parse-ignore"
       >
-        <a href={`https://www.facebook.com/${FACEBOOK_PAGE_ID}`}>
-          Loading Facebook feed...
+        <a href="https://www.facebook.com/profile.php?id=100092667380174">
+          Nepalese Southside Community Glasgow
         </a>
       </blockquote>
     </div>
   </div>
 </div>
 
-<script>
-  // Load Facebook SDK
-  window.fbAsyncInit = function() {
-    window.FB.init({
-      xfbml: true,
-      version: 'v18.0'
-    });
-  };
-
-  (function(d, s, id) {
-    const fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    if (!fjs?.parentNode) return;
-
-    const js = d.createElement(s) as HTMLScriptElement;
-    js.id = id;
-    js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+<div id="fb-root"></div>
+<script is:inline>
+  // Adding a small delay to help with loading in production
+  setTimeout(function() {
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); 
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v18.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }, 500);
 </script>
 
 <style>
   .facebook-feed {
-    @apply flex justify-center items-center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  /* Responsive container */
   .fb-page {
-    @apply w-full max-w-xl mx-auto;
+    width: 100%;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
   }
-  
-  /* Removed dark mode adjustments */
+
+  .dev-notice {
+    background-color: #f0f4f8;
+    border: 1px solid #d0d9e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+    color: #4a5568;
+  }
+
+  .fb-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: #1877F2;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .fb-link:hover {
+    background-color: #166FE5;
+  }
 </style>
